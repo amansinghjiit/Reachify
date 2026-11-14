@@ -24,7 +24,7 @@ const ProductForm = ({ setProducts }) => {
     const newProduct = { name, description, price: parseFloat(price), quantity: parseInt(quantity), brand };
 
     try {
-      const response = await axios.post('http://localhost:8000/api/products/', newProduct);
+      const response = await axios.post('https://reachify-backend-h56s.onrender.com/api/products/', newProduct);
       setProducts((prev) => [response.data, ...prev]);
       setFormData({
         name: '',

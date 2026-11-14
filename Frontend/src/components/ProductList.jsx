@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import ProductItem from './ProductItem';
-import ProductForm from './ProductForm';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ProductItem from "./ProductItem";
+import ProductForm from "./ProductForm";
 
 const ProductList = ({ products, setProducts }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/products/')
-      .then(response => {
+    axios
+      .get("https://reachify-backend-h56s.onrender.com/api/products/")
+      .then((response) => {
         setProducts(response.data);
         setLoading(false);
       })
       .catch(() => {
-        setError('Error fetching products');
+        setError("Error fetching products");
         setLoading(false);
       });
   }, [setProducts]);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8000/api/products/${id}/`)
+    axios
+      .delete(`https://reachify-backend-h56s.onrender.com/api/products/${id}/`)
       .then(() => {
-        setProducts(products.filter(product => product.id !== id));
+        setProducts(products.filter((product) => product.id !== id));
       })
       .catch(() => {
-        setError('Error deleting product');
+        setError("Error deleting product");
       });
   };
 
@@ -36,8 +38,12 @@ const ProductList = ({ products, setProducts }) => {
     <div>
       <ProductForm setProducts={setProducts} />
       <div className="product-list">
-        {products.map(product => (
-          <ProductItem key={product.id} product={product} handleDelete={handleDelete} />
+        {products.map((product) => (
+          <ProductItem
+            key={product.id}
+            product={product}
+            handleDelete={handleDelete}
+          />
         ))}
       </div>
     </div>
